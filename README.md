@@ -1,4 +1,4 @@
-![picture](https://drive.google.com/file/d/1lR9Lz07QW3Xe3X0TNwNlmpHfqrs4lAtt/view?usp=sharing)
+![picture](https://images.app.goo.gl/k1mPKMtgBwRDhtft5)
 # Tugas-Besar-II-IF2211-Strategi-Algoritma
 Pengaplikasian Algoritma BFS dan DFS dalam Fitur People You May Know Jejaring Sosial Facebook<hr>
 ## Pengembang
