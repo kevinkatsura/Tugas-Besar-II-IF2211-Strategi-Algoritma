@@ -1,4 +1,4 @@
-![picture](https://cdn.imgbin.com/5/25/16/imgbin-watercolor-painting-splash-art-remodel-multicolored-illustration-9mwMWuhjNM2DJjtFpFRixD0bw.jpg)
+![picture](https://q3p9g6n2.rocketcdn.me/wp-content/ml-loads/2017/02/people-social-network-connect-ss-1920.jpg)
 # Tugas-Besar-II-IF2211-Strategi-Algoritma
 Pengaplikasian Algoritma BFS dan DFS dalam Fitur People You May Know Jejaring Sosial Facebook<hr>
 ## Pengembang
