@@ -39,7 +39,7 @@ namespace PeopleUMayKnow
             }
             
         }
-        /*
+        
         private void button2_Click(object sender, EventArgs e)
         {
             Microsoft.Msagl.Drawing.Graph drawinggraph = new Microsoft.Msagl.Drawing.Graph("graph");
@@ -49,6 +49,6 @@ namespace PeopleUMayKnow
             }
             gViewer1.Graph = drawinggraph;
         }
-        */
+        
     }
 }
