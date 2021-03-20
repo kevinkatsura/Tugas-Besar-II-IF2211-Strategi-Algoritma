@@ -29,6 +29,7 @@ namespace PeopleUMayKnow
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -36,7 +37,6 @@ namespace PeopleUMayKnow
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
@@ -47,7 +47,7 @@ namespace PeopleUMayKnow
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.gViewer1 = new Microsoft.Msagl.GraphViewerGdi.GViewer();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -118,16 +118,7 @@ namespace PeopleUMayKnow
             this.button1.TabIndex = 6;
             this.button1.Text = "Browse";
             this.button1.UseVisualStyleBackColor = true;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.pictureBox1.Location = new System.Drawing.Point(25, 146);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(530, 306);
-            this.pictureBox1.TabIndex = 9;
-            this.pictureBox1.TabStop = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label6
             // 
@@ -231,6 +222,47 @@ namespace PeopleUMayKnow
             this.dataGridView1.Size = new System.Drawing.Size(530, 186);
             this.dataGridView1.TabIndex = 20;
             // 
+            // gViewer1
+            // 
+            this.gViewer1.ArrowheadLength = 10D;
+            this.gViewer1.AsyncLayout = false;
+            this.gViewer1.AutoScroll = true;
+            this.gViewer1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.gViewer1.BackwardEnabled = false;
+            this.gViewer1.BuildHitTree = true;
+            this.gViewer1.CurrentLayoutMethod = Microsoft.Msagl.GraphViewerGdi.LayoutMethod.UseSettingsOfTheGraph;
+            this.gViewer1.EdgeInsertButtonVisible = true;
+            this.gViewer1.FileName = "";
+            this.gViewer1.ForwardEnabled = false;
+            this.gViewer1.Graph = null;
+            this.gViewer1.InsertingEdge = false;
+            this.gViewer1.LayoutAlgorithmSettingsButtonVisible = true;
+            this.gViewer1.LayoutEditingEnabled = true;
+            this.gViewer1.Location = new System.Drawing.Point(25, 149);
+            this.gViewer1.LooseOffsetForRouting = 0.25D;
+            this.gViewer1.MouseHitDistance = 0.05D;
+            this.gViewer1.Name = "gViewer1";
+            this.gViewer1.NavigationVisible = true;
+            this.gViewer1.NeedToCalculateLayout = true;
+            this.gViewer1.OffsetForRelaxingInRouting = 0.6D;
+            this.gViewer1.PaddingForEdgeRouting = 8D;
+            this.gViewer1.PanButtonPressed = false;
+            this.gViewer1.SaveAsImageEnabled = true;
+            this.gViewer1.SaveAsMsaglEnabled = true;
+            this.gViewer1.SaveButtonVisible = true;
+            this.gViewer1.SaveGraphButtonVisible = true;
+            this.gViewer1.SaveInVectorFormatEnabled = true;
+            this.gViewer1.Size = new System.Drawing.Size(530, 315);
+            this.gViewer1.TabIndex = 21;
+            this.gViewer1.TightOffsetForRouting = 0.125D;
+            this.gViewer1.ToolBarIsVisible = true;
+            this.gViewer1.Transform = ((Microsoft.Msagl.Core.Geometry.Curves.PlaneTransformation)(resources.GetObject("gViewer1.Transform")));
+            this.gViewer1.UndoRedoButtonsVisible = true;
+            this.gViewer1.WindowZoomButtonPressed = false;
+            this.gViewer1.ZoomF = 1D;
+            this.gViewer1.ZoomWindowThreshold = 0.05D;
+            this.gViewer1.Load += new System.EventHandler(this.gViewer1_Load);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -238,6 +270,7 @@ namespace PeopleUMayKnow
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(574, 814);
+            this.Controls.Add(this.gViewer1);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.comboBox1);
@@ -248,7 +281,6 @@ namespace PeopleUMayKnow
             this.Controls.Add(this.button2);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -261,7 +293,6 @@ namespace PeopleUMayKnow
             this.MinimizeBox = false;
             this.Name = "Form1";
             this.Text = "PMYN";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -277,7 +308,6 @@ namespace PeopleUMayKnow
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button button2;
@@ -288,6 +318,7 @@ namespace PeopleUMayKnow
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.DataGridView dataGridView1;
+        private Microsoft.Msagl.GraphViewerGdi.GViewer gViewer1;
     }
 }
 

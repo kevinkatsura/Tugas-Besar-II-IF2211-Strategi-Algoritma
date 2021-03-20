@@ -16,5 +16,21 @@ namespace PeopleUMayKnow
         {
             InitializeComponent();
         }
+
+        private void gViewer1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        OpenFileDialog ofd = new OpenFileDialog();
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ofd.Filter = "Text Documents (*.txt)|*.txt";
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                textBox1.Text = ofd.SafeFileName;
+            }
+            
+        }
     }
 }
