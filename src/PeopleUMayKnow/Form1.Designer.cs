@@ -46,9 +46,8 @@ namespace PeopleUMayKnow
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.gViewer1 = new Microsoft.Msagl.GraphViewerGdi.GViewer();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -148,6 +147,7 @@ namespace PeopleUMayKnow
             this.button2.TabIndex = 12;
             this.button2.Text = "Submit";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // label8
             // 
@@ -211,17 +211,6 @@ namespace PeopleUMayKnow
             this.comboBox2.Size = new System.Drawing.Size(159, 24);
             this.comboBox2.TabIndex = 19;
             // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(25, 606);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 29;
-            this.dataGridView1.Size = new System.Drawing.Size(530, 186);
-            this.dataGridView1.TabIndex = 20;
-            // 
             // gViewer1
             // 
             this.gViewer1.ArrowheadLength = 10D;
@@ -263,6 +252,16 @@ namespace PeopleUMayKnow
             this.gViewer1.ZoomWindowThreshold = 0.05D;
             this.gViewer1.Load += new System.EventHandler(this.gViewer1_Load);
             // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(25, 605);
+            this.textBox2.Multiline = true;
+            this.textBox2.Name = "textBox2";
+            this.textBox2.ReadOnly = true;
+            this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBox2.Size = new System.Drawing.Size(530, 197);
+            this.textBox2.TabIndex = 22;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -270,8 +269,8 @@ namespace PeopleUMayKnow
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(574, 814);
+            this.Controls.Add(this.textBox2);
             this.Controls.Add(this.gViewer1);
-            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.radioButton2);
@@ -293,7 +292,6 @@ namespace PeopleUMayKnow
             this.MinimizeBox = false;
             this.Name = "Form1";
             this.Text = "PMYN";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -317,8 +315,8 @@ namespace PeopleUMayKnow
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.DataGridView dataGridView1;
         private Microsoft.Msagl.GraphViewerGdi.GViewer gViewer1;
+        private System.Windows.Forms.TextBox textBox2;
     }
 }
 

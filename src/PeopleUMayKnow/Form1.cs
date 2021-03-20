@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace PeopleUMayKnow
 {
@@ -19,17 +20,28 @@ namespace PeopleUMayKnow
 
         private void gViewer1_Load(object sender, EventArgs e)
         {
-
+            
         }
+        
 
         OpenFileDialog ofd = new OpenFileDialog();
+
+        GraphHandler graph = new GraphHandler();
         private void button1_Click(object sender, EventArgs e)
         {
             ofd.Filter = "Text Documents (*.txt)|*.txt";
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 textBox1.Text = ofd.SafeFileName;
+                string[] isi = File.ReadAllLines(ofd.FileName);
+                graph.setGraphHandler(isi);
+                textBox2.Text = graph.Edges[0].Node1;
             }
+            
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
             
         }
     }
