@@ -26,7 +26,7 @@ namespace PeopleUMayKnow
 
         OpenFileDialog ofd = new OpenFileDialog();
 
-        GraphHandler graph = new GraphHandler();
+        GraphHandler g = new GraphHandler();
         private void button1_Click(object sender, EventArgs e)
         {
             ofd.Filter = "Text Documents (*.txt)|*.txt";
@@ -34,15 +34,21 @@ namespace PeopleUMayKnow
             {
                 textBox1.Text = ofd.SafeFileName;
                 string[] isi = File.ReadAllLines(ofd.FileName);
-                graph.setGraphHandler(isi);
-                textBox2.Text = graph.Edges[0].Node1;
+                g.setGraphHandler(isi);
+                textBox2.Text = g.Edges[0].Node1;
             }
             
         }
-
+        /*
         private void button2_Click(object sender, EventArgs e)
         {
-            
+            Microsoft.Msagl.Drawing.Graph drawinggraph = new Microsoft.Msagl.Drawing.Graph("graph");
+            for (int i=0; i<g.Total; i++)
+            {
+                drawinggraph.AddEdge(g.Edges[i].Node1, g.Edges[i].Node2);
+            }
+            gViewer1.Graph = drawinggraph;
         }
+        */
     }
 }

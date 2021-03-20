@@ -12,6 +12,11 @@ namespace PeopleUMayKnow
         public string Node1;
         public string Node2;
 
+        public Edge()
+        {
+            this.Node1 = "";
+            this.Node2 = "";
+        }
     }
 
     public class GraphHandler
