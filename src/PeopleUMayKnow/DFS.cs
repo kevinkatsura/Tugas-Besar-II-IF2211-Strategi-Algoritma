@@ -254,18 +254,21 @@ namespace PeopleUMayKnow
         public void showDFS(string init, string dest, string[] raw)
         {
             int i = int.Parse(ExploreFriend(init, dest, raw)[0]);
-            if(i == 1)
-            {
+            string result = "";
 
-            }
-            else
-            {
-                string result = "";
-                string[] buffer = new string[i];
-                buffer = ExploreFriend(init, dest, raw);
-                for(int j = 1; j <= i; j++)
-                {
-                    result = result + buffer[j] + " ";
+            string[] buffer = new string[i];
+            buffer = ExploreFriend(init, dest, raw);
+
+            if (i == 1){
+                result = result+buffer[1];
+            }else{  
+                
+                for(int j = 1; j <= i; j++){
+                    if(j == i){
+                        result = result + buffer[j];
+                    }else{
+                        result = result + buffer[j] + " -> ";
+                    }
                 }
             }
         }
