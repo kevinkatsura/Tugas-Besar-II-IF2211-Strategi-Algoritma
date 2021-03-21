@@ -13,6 +13,7 @@ namespace PeopleUMayKnow
 {
     public partial class Form1 : Form
     {
+        string[] contents;
         public Form1()
         {
             InitializeComponent();
@@ -28,7 +29,6 @@ namespace PeopleUMayKnow
         Graph g = new Graph();
         private void button1_Click(object sender, EventArgs e)
         {
-            this.textBox2.Text = "Kevin Katsura\n Dani Sitanggang";
             ofd.Filter = "Text Documents (*.txt)|*.txt";
             if (ofd.ShowDialog() == DialogResult.OK)
             {
@@ -37,7 +37,7 @@ namespace PeopleUMayKnow
                 path.Text = ofd.SafeFileName;
                 string[] isi = File.ReadAllLines(ofd.FileName);
                 g.setGraph(isi);
-                textBox2.Text = g.Edges[0].Node1;
+                //textBox2.Text = g.Edges[0].Node1;
 
                 // Membuat graph drawer
                 for (int i = 0; i < g.Total; i++)
@@ -51,14 +51,22 @@ namespace PeopleUMayKnow
                 {
                     comboBox1.Items.Add(node);
                 }
-
+                // Assign file ke field contents
+                this.contents = new string[int.Parse(isi[0])+1];
+                this.contents = isi;
             }
             
         }
         
         private void button2_Click(object sender, EventArgs e)
         {
-            
+            if (radioButton1.Checked)
+            {
+                string init = comboBox1.SelectedItem.ToString();
+                string dest = comboBox2.SelectedItem.ToString();
+                DFS dfs = new DFS(this.contents);
+                textBox2.AppendText(dfs.showDFS(init, dest, this.contents));
+            }
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -93,6 +101,11 @@ namespace PeopleUMayKnow
         }
 
         private void label11_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void gViewer1_Load(object sender, EventArgs e)
         {
 
         }

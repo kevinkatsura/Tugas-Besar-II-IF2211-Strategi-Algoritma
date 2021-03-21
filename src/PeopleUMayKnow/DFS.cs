@@ -8,8 +8,8 @@ namespace PeopleUMayKnow
 {
     class DFS
     {
-        private string[][] vertex;
-        private int NumOfVertex;
+        public string[][] vertex;
+        public int NumOfVertex;
         public DFS(string[] raw) {
             string[] buffer = new string[int.Parse(raw[0])*2];
             int max = int.Parse(raw[0]);
@@ -204,6 +204,7 @@ namespace PeopleUMayKnow
             // Create array of string for tracking
             string[] track = new string[this.NumOfVertex];
             int count = 1;
+            int offset = 1;
             track[count] = init;
             //
             bool found = false;
@@ -251,12 +252,12 @@ namespace PeopleUMayKnow
             return track;
         }
 
-        public void showDFS(string init, string dest, string[] raw)
+        public string showDFS(string init, string dest, string[] raw)
         {
             int i = int.Parse(ExploreFriend(init, dest, raw)[0]);
             string result = "";
 
-            string[] buffer = new string[i];
+            string[] buffer;
             buffer = ExploreFriend(init, dest, raw);
 
             if (i == 1){
@@ -265,12 +266,13 @@ namespace PeopleUMayKnow
                 
                 for(int j = 1; j <= i; j++){
                     if(j == i){
-                        result = result + buffer[j];
+                        result = String.Concat(result,buffer[j]);
                     }else{
-                        result = result + buffer[j] + " -> ";
+                        result = String.Concat(result, buffer[j]," -> ");
                     }
                 }
             }
+            return result;
         }
 
     }

@@ -253,6 +253,7 @@ namespace PeopleUMayKnow
             this.gViewer1.WindowZoomButtonPressed = false;
             this.gViewer1.ZoomF = 1D;
             this.gViewer1.ZoomWindowThreshold = 0.05D;
+            this.gViewer1.Load += new System.EventHandler(this.gViewer1_Load);
             // 
             // textBox2
             // 
