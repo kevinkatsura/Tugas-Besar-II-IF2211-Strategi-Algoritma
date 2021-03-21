@@ -28,12 +28,13 @@ namespace PeopleUMayKnow
         Graph g = new Graph();
         private void button1_Click(object sender, EventArgs e)
         {
+            this.textBox2.Text = "Kevin Katsura\n Dani Sitanggang";
             ofd.Filter = "Text Documents (*.txt)|*.txt";
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 // Membuat graph dari text yang di buka
                 g.clearGraph();
-                textBox1.Text = ofd.SafeFileName;
+                path.Text = ofd.SafeFileName;
                 string[] isi = File.ReadAllLines(ofd.FileName);
                 g.setGraph(isi);
                 textBox2.Text = g.Edges[0].Node1;
@@ -80,6 +81,20 @@ namespace PeopleUMayKnow
             }
 
             gViewer1.Graph.FindNode(comboBox1.Text).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Red;
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label11_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
