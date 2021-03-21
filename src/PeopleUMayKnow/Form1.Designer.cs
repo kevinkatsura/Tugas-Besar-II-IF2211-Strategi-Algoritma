@@ -201,6 +201,7 @@ namespace PeopleUMayKnow
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(159, 24);
             this.comboBox1.TabIndex = 18;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // comboBox2
             // 
@@ -250,7 +251,6 @@ namespace PeopleUMayKnow
             this.gViewer1.WindowZoomButtonPressed = false;
             this.gViewer1.ZoomF = 1D;
             this.gViewer1.ZoomWindowThreshold = 0.05D;
-            this.gViewer1.Load += new System.EventHandler(this.gViewer1_Load);
             // 
             // textBox2
             // 
