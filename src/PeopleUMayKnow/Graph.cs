@@ -19,8 +19,10 @@ namespace PeopleUMayKnow
 
         public bool isAdjacent(string node)
         {
-            return (this.Node1 == node) || (this.Node2 == node);
+            return ((this.Node1 == node) || (this.Node2 == node)) && this.Node1 != this.Node2;
         }
+
+        
     }
 
     public class Graph

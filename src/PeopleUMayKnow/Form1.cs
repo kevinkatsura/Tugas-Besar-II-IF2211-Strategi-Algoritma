@@ -73,22 +73,22 @@ namespace PeopleUMayKnow
         {
             // Menambah atau memperbaharui item di box Explore friends with
             comboBox2.Items.Clear();
-            foreach(Edge ed in g.Edges)
+            foreach(string nd in g.Nodes)
             {
-                if (ed.isAdjacent(comboBox1.Text))
+                if (nd != comboBox1.Text)
                 {
-                    if(ed.Node1 != comboBox1.Text)
-                    {
-                        comboBox2.Items.Add(ed.Node1);
-                    }
-                    else
-                    {
-                        comboBox2.Items.Add(ed.Node2);
-                    }
+                    comboBox2.Items.Add(nd);
                 }
             }
 
             gViewer1.Graph.FindNode(comboBox1.Text).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Red;
+            gViewer1.Refresh();
+        }
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            gViewer1.Graph.FindNode(comboBox2.Text).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Red;
+            gViewer1.Refresh();
+            
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
@@ -109,5 +109,7 @@ namespace PeopleUMayKnow
         {
 
         }
+
+        
     }
 }
