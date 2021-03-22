@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using Microsoft.Msagl.Drawing;
 
 namespace PeopleUMayKnow
 {
@@ -42,7 +43,7 @@ namespace PeopleUMayKnow
                 // Membuat graph drawer
                 for (int i = 0; i < g.Total; i++)
                 {
-                    graphDrawer.AddEdge(g.Edges[i].Node1, g.Edges[i].Node2);
+                    graphDrawer.AddEdge(g.Edges[i].Node1, g.Edges[i].Node2).Attr.ArrowheadLength = 1;
                 }
                 gViewer1.Graph = graphDrawer;
                 
@@ -73,6 +74,16 @@ namespace PeopleUMayKnow
         {
             // Menambah atau memperbaharui item di box Explore friends with
             comboBox2.Items.Clear();
+            foreach(Node n in gViewer1.Graph.Nodes)
+            {
+                if(n.LabelText != comboBox2.Text)
+                {
+                    n.Attr.FillColor = Microsoft.Msagl.Drawing.Color.White;
+                }
+                
+            }
+            gViewer1.Refresh();
+
             foreach(string nd in g.Nodes)
             {
                 if (nd != comboBox1.Text)
@@ -86,6 +97,14 @@ namespace PeopleUMayKnow
         }
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
+            foreach (Node n in gViewer1.Graph.Nodes)
+            {
+                if (n.LabelText != comboBox1.Text)
+                {
+                    n.Attr.FillColor = Microsoft.Msagl.Drawing.Color.White;
+                }
+
+            }
             gViewer1.Graph.FindNode(comboBox2.Text).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Red;
             gViewer1.Refresh();
             
