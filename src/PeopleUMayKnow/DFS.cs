@@ -211,22 +211,16 @@ namespace PeopleUMayKnow
             this.vertex[i][1] = bool.TrueString;
         }
 
-        public string selectBranch(string[] tList)
-        {
+        public string selectBranch(string[] tList){
             int i = 1;
             int j;
             int length = int.Parse(tList[0]);
-            while (i <= length)
-            {
+            while (i <= length){
                 j = 0;
-                while (j < this.NumOfVertex)
-                {
-                    if (tList[i] == this.vertex[j][0] && !bool.Parse(this.vertex[j][1]))
-                    {
+                while (j < this.NumOfVertex){
+                    if (tList[i] == this.vertex[j][0] && !bool.Parse(this.vertex[j][1])){
                         return this.vertex[j][0];
-                    }
-                    else
-                    {
+                    }else{
                         j++;
                     }
                 }
@@ -336,19 +330,15 @@ namespace PeopleUMayKnow
             string[] x = new string[this.NumOfVertex + 1];
             x = ExploreFriend(init, dest, raw);
             int i = int.Parse(x[0]);
-            string result = "";
-
-            if (i == 1)
-            {
+            string result = "(";
+            if (i == 1){
                 result = result + x[1];
             }
-            else
-            {
-                for (int j = 1; j <= i; j++)
-                {
+            else{
+                for (int j = 1; j <= i; j++){
                     if (j == i)
                     {
-                        result = String.Concat(result, x[j]);
+                        result = String.Concat(result, x[j],", ",i-2," Degree)");
                     }
                     else
                     {

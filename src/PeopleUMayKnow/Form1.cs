@@ -62,17 +62,40 @@ namespace PeopleUMayKnow
         private void button2_Click(object sender, EventArgs e)
         {
             textBox2.Clear();
-            if (radioButton1.Checked)
-            {
-                string init = comboBox1.SelectedItem.ToString();
-                string dest = comboBox2.SelectedItem.ToString();
-                DFS dfs = new DFS(this.contents);
-                textBox2.AppendText(dfs.showDFS(init, dest, this.contents));
-            }
-            if (radioButton2.Checked)
-            {
+            DFS dfs = new DFS(this.contents);
+            string init = comboBox1.SelectedItem.ToString();
+            string dest = comboBox2.SelectedItem.ToString();
+            MutualFriend mutualfriend = new MutualFriend(init, this.contents);
+            mutualfriend.search(this.contents);
+            mutualfriend.sortRelation();
+            textBox2.AppendText(" Friend Recommendations for "+ init +" :\r\n");
+            for(int i = 0; i < mutualfriend.NumOfRelation; i++){
+                if(int.Parse(mutualfriend.relation[i][0]) != 0){
+                    textBox2.AppendText((i + 1).ToString()+". "+mutualfriend.relation[i][1] + " ");
+                    if (mutualfriend.relation[i][1] == dest){
+                        if (radioButton1.Checked){
+                            textBox2.AppendText(dfs.showDFS(init, dest, this.contents));
+                        }
+                        if (radioButton2.Checked){
+                            foreach (string nd in g.Nodes){
+                                if (nd != comboBox1.Text)
+                                {
 
+                                }
+                            }
+                        }
+                    }
+                    textBox2.AppendText("\r\n    ");
+                    textBox2.AppendText(mutualfriend.relation[i][0] + " Mutual Friends : ");
+                    for (int j = 0; j < int.Parse(mutualfriend.relation[i][0]); j++){
+                        textBox2.AppendText(mutualfriend.relation[i][j + 2]);
+                    }
+                    textBox2.AppendText("\r\n");
+                }
             }
+            textBox2.AppendText("\r\n");
+            textBox2.AppendText("Nama akun : "+init+" dan "+dest+"\r\n");
+            textBox2.AppendText(dfs.showDFS(init, dest, this.contents));
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -134,6 +157,9 @@ namespace PeopleUMayKnow
 
         }
 
-        
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
