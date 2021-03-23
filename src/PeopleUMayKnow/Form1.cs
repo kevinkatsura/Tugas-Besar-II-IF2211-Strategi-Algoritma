@@ -61,6 +61,7 @@ namespace PeopleUMayKnow
         
         private void button2_Click(object sender, EventArgs e)
         {
+            textBox2.Clear();
             if (radioButton1.Checked)
             {
                 string init = comboBox1.SelectedItem.ToString();
