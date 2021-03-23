@@ -121,9 +121,10 @@ namespace PeopleUMayKnow
             int awal=find(buffer, init);
             int akhir = find(buffer, dest);
             
-            string track;
-            string[][] bangkit = new string[number][2];
+            string track = "";
+            string[][] bangkit = new string[number][];
             //isinya orang, dan jalur ke orang itu, orang disini berupa lokasi dalam array buffer
+            bangkit[0] = new string[2];
             bangkit[0][0]=awal.ToString();
             bangkit[0][1]="";
             int bangkitNow=1;
@@ -134,12 +135,13 @@ namespace PeopleUMayKnow
                 for(int l=0; l<hubungan[now].Length;l++){
                     if(int.Parse(hubungan[now][l])==akhir){
                         found = true;
-                        string temp = bangkit[m][1] + "-" + now.ToString + "-" +hubungan[now][l];
-                        track = temp;;
+                        string temp = bangkit[m][1] + "-" + now.ToString() + "-" +hubungan[now][l];
+                        track = temp;
                     }else{
                         if(!exist(bangkit,hubungan[now][l])){
+                            bangkit[bangkitNow] = new string[2];
                             bangkit[bangkitNow][0]=hubungan[now][l];
-                            string temp = bangkit[m][1] + "-" + now.ToString;
+                            string temp = bangkit[m][1] + "-" + now.ToString();
                             bangkitNow++;
                         }
                     }
@@ -147,8 +149,8 @@ namespace PeopleUMayKnow
                 m++;
             }
 
-            string[] trackHasil = track.Split("-");
-            string[] hasil;
+            string[] trackHasil = track.Split('-');
+            string[] hasil = new string[trackHasil.Length];
             for(int z=0; z<trackHasil.Length;z++){
                 hasil[z] = buffer[int.Parse(trackHasil[z])];
             }
@@ -156,7 +158,7 @@ namespace PeopleUMayKnow
         }
         public int find(string[] arr, string target){
             bool found = false;
-            int lokasi;
+            int lokasi = 0;
             int i=0;
             while (!found && i<arr.Length){
                 if(arr[i] == target){
@@ -169,7 +171,6 @@ namespace PeopleUMayKnow
         }
         public bool exist(string[][] arr, string target){
             bool found = false;
-            int lokasi;
             int i=0;
             while (!found && i<arr.Length){
                 if(arr[i][0] == target){
@@ -183,21 +184,17 @@ namespace PeopleUMayKnow
             int i = track.Length;
             string result = "";
             
-            if (i == 1)
-            {
-                result = result + x[1];
+            if (i == 1){
+                result = result + track[1];
             }
-            else
-            {
-                for (int j = 0; j < i; j++)
-                {
-                    if (j == i)
-                    {
-                        result = String.Concat(result, x[j]);
+            else{
+                for (int j = 0; j < i; j++){
+                    if (j == i){
+                        result = String.Concat(result, track[j]);
                     }
                     else
                     {
-                        result = String.Concat(result, x[j], " -> ");
+                        result = String.Concat(result, track[j], " -> ");
                     }
                 }
             }
