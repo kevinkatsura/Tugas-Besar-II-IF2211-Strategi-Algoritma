@@ -77,12 +77,8 @@ namespace PeopleUMayKnow
                             textBox2.AppendText(dfs.showDFS(init, dest, this.contents));
                         }
                         if (radioButton2.Checked){
-                            foreach (string nd in g.Nodes){
-                                if (nd != comboBox1.Text)
-                                {
-
-                                }
-                            }
+                            BFS bfs = new BFS(this.contents);
+                            textBox2.AppendText(bfs.showBFS(bfs.ExploreFriendBFS(init, dest)));
                         }
                     }
                     textBox2.AppendText("\r\n    ");
