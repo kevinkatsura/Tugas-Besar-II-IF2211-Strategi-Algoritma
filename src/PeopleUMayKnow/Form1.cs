@@ -69,6 +69,10 @@ namespace PeopleUMayKnow
                 DFS dfs = new DFS(this.contents);
                 textBox2.AppendText(dfs.showDFS(init, dest, this.contents));
             }
+            if (radioButton2.Checked)
+            {
+
+            }
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
