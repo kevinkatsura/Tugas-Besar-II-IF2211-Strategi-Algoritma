@@ -71,7 +71,10 @@ namespace PeopleUMayKnow
             }
             if (radioButton2.Checked)
             {
-
+                string init = comboBox1.SelectedItem.ToString();
+                string dest = comboBox2.SelectedItem.ToString();
+                BFS bfs = new BFS(this.contents);
+                textBox2.AppendText(bfs.showBFS(bfs.ExploreFriendBFS(init, dest)));
             }
         }
 
