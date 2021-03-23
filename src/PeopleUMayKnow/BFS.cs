@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,27 +10,28 @@ namespace PeopleUMayKnow
     {
         public string[][] hubungan;
         public string[] buffer;
+        public int number;
 
         public BFS(string[] raw)
         {
             string[][] vertex;
             //buat dalam bentuk array of string yang isinya daftar orang
-            buffer = new string[int.Parse(raw[0]) * 2];
+            buffer = new string[int.Parse(raw[0])*2];
             int max = int.Parse(raw[0]);
             int count = 0;
-            for (int i = 1; i <= max; i++)
+            for(int i = 1; i <= max; i++)
             {
                 string[] buf = raw[i].Split(' ');
                 int j = 0;
-                bool found1 = false;
+                bool found1 = false; 
                 bool found2 = false;
-                while (j < count && (!found1 || !found2))
+                while(j < count && (!found1 || !found2))
                 {
-                    if (buffer[j] == buf[0])
+                    if(buffer[j] == buf[0])
                     {
                         found1 = true;
                     }
-                    if (buffer[j] == buf[1])
+                    if(buffer[j] == buf[1])
                     {
                         found2 = true;
                     }
@@ -48,36 +49,30 @@ namespace PeopleUMayKnow
                 }
             }
 
+            number = count;
             //urutkan array tersebut
-            int length = buffer.Length();
+            int length = buffer.Length;
             int offset;
             string temp;
-            for (int i = 0; i <= length; i++)
-            {
-                for (int j = i + 1; j <= length; j++)
-                {
+            for (int i = 0; i <= length; i++){
+                for(int j = i+1; j <= length; j++){
                     offset = 0;
-                    if (buffer[i][offset] > buffer[j][offset])
-                    {
+                    if(buffer[i][offset] > buffer[j][offset]){
                         temp = buffer[i];
                         buffer[i] = buffer[j];
                         buffer[j] = temp;
                     }
-                    if (buffer[i][offset] == buffer[j][offset])
-                    {
+                    if(buffer[i][offset] == buffer[j][offset]){
                         offset++;
                         bool done = false;
-                        while (offset < buffer[j].Length && offset < buffer[i].Length && !done)
-                        {
-                            if (buffer[i][offset] > buffer[j][offset])
-                            {
+                        while (offset < buffer[j].Length && offset < buffer[i].Length && !done){
+                            if(buffer[i][offset] > buffer[j][offset]){
                                 temp = buffer[i];
                                 buffer[i] = buffer[j];
                                 buffer[j] = temp;
                                 done = true;
                             }
-                            else
-                            {
+                            else{
                                 offset++;
                             }
                         }
@@ -88,16 +83,14 @@ namespace PeopleUMayKnow
             //buat dalam bentuk array of array yang elemennya adalah array yang elemen pertama orang, kedua ialah jumlah teman
 
             vertex = new string[count][];
-            for (int k = 0; k < count; k++)
+            for(int k = 0; k < count; k++)
             {
                 vertex[k] = new string[2];
                 vertex[k][0] = buffer[k];
-                int sum = 0;
-                for (int i = 1; i <= max; i++)
-                {
+                int sum=0;
+                for(int i = 1; i <= max; i++){
                     string[] buf = raw[i].Split(' ');
-                    if (vertex[k][0] == buf[0] || vertex[k][0] == buf[1])
-                    {
+                    if(vertex[k][0]==buf[0] || vertex[k][0] == buf[1]){
                         sum++;
                     }
                 }
@@ -105,59 +98,47 @@ namespace PeopleUMayKnow
             }
 
             //buat dalam bentuk matriks yang setiap barisnya , misal baris i, isinya ialah teman dari orang pada buffer yang baris i
-            hubungan = new string[count][];
-            for (int i = 0; i < count; i++)
-            {
+            hubungan= new string[count][];
+            for(int i=0; i<count; i++){
                 int jumlah = int.Parse(vertex[i][1]);
-                hubungan[i] = new string[jumlah];
-                int j = 0;
-                for (int k = 1; k <= max; k++)
-                {
+                hubungan[i]= new string[jumlah];
+                int j=0;
+                for(int k = 1; k <= max; k++){
                     string[] buf = raw[k].Split(' ');
-                    if (buffer[i] == buf[0])
-                    {
-                        hubungan[i][j] = find(buffer, buf[1]).ToString();
+                    if(buffer[i]==buf[0]){
+                        hubungan[i][j]=find(buffer, buf[1]).ToString();
                         j++;
-                    }
-                    else if (buffer[i] == buf[1])
-                    {
-                        hubungan[i][j] = find(buffer, buf[0]).ToString();
+                    }else if(buffer[i]==buf[1]){
+                        hubungan[i][j]=find(buffer, buf[0]).ToString();
                         j++;
                     }
                 }
             }
 
         }
-        public string[] ExploreFriendBFS(string init, string dest)
-        {
+        public string[] ExploreFriendBFS(string init, string dest) {
             //lakukan pencarian lokasi init di matriks buffer
-            int awal = find(buffer, init);
+            int awal=find(buffer, init);
             int akhir = find(buffer, dest);
-
+            
             string track;
-            string[][] bangkit = new string[count][2];
+            string[][] bangkit = new string[number][2];
             //isinya orang, dan jalur ke orang itu, orang disini berupa lokasi dalam array buffer
-            bangkit[0][0] = awal.ToString();
-            bangkit[0][1] = "";
-            int bangkitNow = 1;
+            bangkit[0][0]=awal.ToString();
+            bangkit[0][1]="";
+            int bangkitNow=1;
             bool found = false;
-            int m = 0;
-            while (!found)
-            {
-                int now = int.Parse(bangkit[m][0]);
-                for (int l = 0; l < hubungan[now].length(); l++)
-                {
-                    if (int.Parse(hubungan[now][l]) == akhir)
-                    {
+            int m=0;
+            while(!found){
+                int now =int.Parse(bangkit[m][0]) 
+                for(int l=0; l<hubungan[now].Length;l++;){
+                    if(int.Parse(hubungan[now][l])==akhir){
                         found = true;
-                        string temp = bangkit[m][1] + "-" + now.ToString + "-" + hubungan[now][l];
-                        track = temp; ;
-                    }
-                    else
-                    {
-                        if (!exist(bangkit, hubungan[now][l]))
-                        {
-                            bangkit[bangkitNow][0] = hubungan[now][l];
+                        string temp = bangkit[m][1] + "-" + now.ToString + "-" +hubungan[now][l];
+                        track = temp;;
+                    }else{
+                        if(!exist(bangkit,hubungan[now][l])){
+                            bangkit[bangkitNow][0]=hubungan[now][l];
                             string temp = bangkit[m][1] + "-" + now.ToString;
                             bangkitNow++;
                         }
@@ -168,48 +149,40 @@ namespace PeopleUMayKnow
 
             string[] trackHasil = track.Split("-");
             string[] hasil;
-            for (int z = 0; z < trackHasil.length(); z++)
-            {
+            for(int z=0; z<trackHasil.Length;z++){
                 hasil[z] = buffer[int.Parse(trackHasil[z])];
             }
             return hasil;
         }
-        public int find(string[] arr, string target)
-        {
+        public int find(string[] arr, string target){
             bool found = false;
             int lokasi;
-            int i = 0;
-            while (!found && i < arr.length())
-            {
-                if (arr[i] == target)
-                {
-                    found = true;
-                    lokasi = i;
+            int i=0;
+            while (!found && i<arr.Length){
+                if(arr[i] == target){
+                    found=true;
+                    lokasi=i;
                 }
                 i++;
             }
             return lokasi;
         }
-        public bool exist(string[][] arr, string target)
-        {
+        public bool exist(string[][] arr, string target){
             bool found = false;
             int lokasi;
-            int i = 0;
-            while (!found && i < arr.length())
-            {
-                if (arr[i][0] == target)
-                {
-                    found = true;
+            int i=0;
+            while (!found && i<arr.Length){
+                if(arr[i][0] == target){
+                    found=true;
                 }
                 i++;
             }
             return found;
         }
-        public string showBFS(string[] track)
-        {
-            int i = track.length();
+        public string showBFS (string[] track){
+            int i = track.Length;
             string result = "";
-
+            
             if (i == 1)
             {
                 result = result + x[1];
@@ -229,6 +202,15 @@ namespace PeopleUMayKnow
                 }
             }
             return result;
+        }
+        public int length(string[] target)
+        {
+            int sum = 0;
+            foreach(string i in target)
+            {
+                sum++;
+            }
+            return sum;
         }
     }
 }
