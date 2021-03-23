@@ -10,55 +10,63 @@ namespace PeopleUMayKnow
     {
         public string[][] vertex;
         public int NumOfVertex;
-        public DFS(string[] raw) {
-            string[] buffer = new string[int.Parse(raw[0])*2];
+        public DFS(string[] raw)
+        {
+            string[] buffer = new string[int.Parse(raw[0]) * 2];
             int max = int.Parse(raw[0]);
             int count = 0;
-            for(int i = 1; i <= max; i++)
+            for (int i = 1; i <= max; i++)
             {
                 string[] buf = raw[i].Split(' ');
                 int j = 0;
-                bool found1 = false; 
+                bool found1 = false;
                 bool found2 = false;
-                while(j < count && (!found1 || !found2)){
-                    if(buffer[j] == buf[0]){
+                while (j < count && (!found1 || !found2))
+                {
+                    if (buffer[j] == buf[0])
+                    {
                         found1 = true;
                     }
-                    if(buffer[j] == buf[1]){
+                    if (buffer[j] == buf[1])
+                    {
                         found2 = true;
                     }
                     j++;
                 }
-                if (!found1){
+                if (!found1)
+                {
                     buffer[count] = buf[0];
                     count++;
                 }
-                if (!found2){
+                if (!found2)
+                {
                     buffer[count] = buf[1];
                     count++;
                 }
             }
             this.NumOfVertex = count;
             this.vertex = new string[count][];
-            for(int k = 0; k < count; k++)
+            for (int k = 0; k < count; k++)
             {
                 vertex[k] = new string[2];
                 this.vertex[k][0] = buffer[k];
                 this.vertex[k][1] = bool.FalseString;
             }
         }
-        private bool isBranchVisited(string init, string[] raw)
+        public bool isBranchVisited(string init, string[] raw)
         {
             int length = int.Parse(raw[0]);
             bool visited = true;
             string[] buf = new string[2];
-            for (int i = 1; i <= length; i++)
+            for (int i = 1; i <= length && visited; i++)
             {
                 buf = raw[i].Split(' ');
-                if(buf[0] == init) { 
+                if (buf[0] == init)
+                {
                     int j = 0;
                     bool found = false;
-                    while(j < this.NumOfVertex && !found){
+                    while (j < this.NumOfVertex && !found)
+                    {
                         if (this.vertex[j][0] == buf[1] && !(bool.Parse(this.vertex[j][1])))
                         {
                             visited = false;
@@ -70,7 +78,7 @@ namespace PeopleUMayKnow
                         }
                     }
                 }
-                if(buf[1] == init)
+                if (buf[1] == init)
                 {
                     int j = 0;
                     bool found = false;
@@ -91,16 +99,16 @@ namespace PeopleUMayKnow
             return visited;
         }
 
-        private string[] listBranch(string prevVertex,string vertex, string[] raw)
+        public string[] listBranch(string prevVertex, string vertex, string[] raw)
         {
             int length = int.Parse(raw[0]);
             string[] buf = new string[2];
-            string[] tList = new string[this.NumOfVertex+1];
+            string[] tList = new string[this.NumOfVertex + 1];
             int count = 1;
-            for(int i = 1; i <= length; i++)
+            for (int i = 1; i <= length; i++)
             {
                 buf = raw[i].Split(' ');
-                if((buf[0] == vertex) && (buf[1] != prevVertex))
+                if ((buf[0] == vertex) && (buf[1] != prevVertex))
                 {
                     tList[count] = buf[1];
                     count++;
@@ -111,34 +119,41 @@ namespace PeopleUMayKnow
                     count++;
                 }
             }
-            tList[0] = (count-1).ToString();
+            tList[0] = (count - 1).ToString();
             return tList;
         }
 
-        private string[] sortStringList(string[] tList)
+        public string[] sortStringList(string[] tList)
         {
             int length = int.Parse(tList[0]);
             int offset;
             string buffer;
-            for (int i = 1; i <= length; i++){
-                for(int j = i+1; j <= length; j++){
+            for (int i = 1; i <= length; i++)
+            {
+                for (int j = i + 1; j <= length; j++)
+                {
                     offset = 0;
-                    if(tList[i][offset] > tList[j][offset]){
+                    if (tList[i][offset] > tList[j][offset])
+                    {
                         buffer = tList[i];
                         tList[i] = tList[j];
                         tList[j] = buffer;
                     }
-                    if(tList[i][offset] == tList[j][offset]){
+                    if (tList[i][offset] == tList[j][offset])
+                    {
                         offset++;
                         bool done = false;
-                        while (offset < tList[j].Length && offset < tList[i].Length && !done){
-                            if(tList[i][offset] > tList[j][offset]){
+                        while (offset < tList[j].Length && offset < tList[i].Length && !done)
+                        {
+                            if (tList[i][offset] > tList[j][offset])
+                            {
                                 buffer = tList[i];
                                 tList[i] = tList[j];
                                 tList[j] = buffer;
                                 done = true;
                             }
-                            else{
+                            else
+                            {
                                 offset++;
                             }
                         }
@@ -148,34 +163,55 @@ namespace PeopleUMayKnow
             return tList;
         }
 
-        private void setInactive(string prevVertex, string vertex, string[] raw)
+        public void setInactive(string prevVertex, string vertex, string[] raw, string[] activeVertex)
         {
-            string[] buffer;
+            string[] buffer = new string[int.Parse(listBranch(prevVertex, vertex, raw)[0]) + 1];
             buffer = listBranch(prevVertex, vertex, raw);
             int length = int.Parse(buffer[0]);
-            for(int i = 1; i <= length; i++){
-                if(prevVertex != buffer[i]){
-                    int j = 0;
-                    while(buffer[i] != this.vertex[j][0])
+            int NumOfActiveVertex = int.Parse(activeVertex[0]);
+            int k;
+            bool valid;
+            for (int i = 1; i <= length; i++)
+            {
+                k = 1;
+                valid = true;
+                while (k <= NumOfActiveVertex && valid)
+                {
+                    if (buffer[i] == activeVertex[k])
                     {
-                        j++; 
+                        valid = false;
                     }
-                    this.vertex[j][1] = bool.FalseString;
+                    else
+                    {
+                        k++;
+                    }
+                }
+                if (valid)
+                {
+                    if (prevVertex != buffer[i])
+                    {
+                        int j = 0;
+                        while (buffer[i] != this.vertex[j][0])
+                        {
+                            j++;
+                        }
+                        this.vertex[j][1] = bool.FalseString;
+                    }
                 }
             }
         }
 
-        private void setActiveVertex(string vertex)
+        public void setActiveVertex(string vertex)
         {
             int i = 0;
-            while(this.vertex[i][0] != vertex)
+            while (this.vertex[i][0] != vertex)
             {
                 i++;
             }
             this.vertex[i][1] = bool.TrueString;
         }
 
-        private string selectBranch(string[] tList)
+        public string selectBranch(string[] tList)
         {
             int i = 1;
             int j;
@@ -183,9 +219,9 @@ namespace PeopleUMayKnow
             while (i <= length)
             {
                 j = 0;
-                while(j < this.NumOfVertex)
+                while (j < this.NumOfVertex)
                 {
-                    if(tList[i] == this.vertex[j][0] && !bool.Parse(this.vertex[j][1]))
+                    if (tList[i] == this.vertex[j][0] && !bool.Parse(this.vertex[j][1]))
                     {
                         return this.vertex[j][0];
                     }
@@ -199,76 +235,124 @@ namespace PeopleUMayKnow
             return "";
         }
 
+        public bool isExist(string name, string[] path)
+        {
+            int length = int.Parse(path[0]);
+            int i = 1;
+            while (i <= length)
+            {
+                if (path[i] == name)
+                {
+                    return true;
+                }
+                else
+                {
+                    i++;
+                }
+            }
+            return false;
+        }
+
         public string[] ExploreFriend(string init, string dest, string[] raw)
         {
-            // Create array of string for tracking
-            string[] track = new string[this.NumOfVertex];
-            int count = 1;
-            int offset = 1;
-            track[count] = init;
-            //
-            bool found = false;
-            int length = int.Parse(raw[0]);
-
-            //
+            // Declare all variable will be being used
             string next;
-            setActiveVertex(init);
-            next = sortStringList(listBranch("", init, raw))[0];
+            bool found = false;
+            int count = 1;
+            int countDFS = 1;
 
-            //
-            while(!found){
-                if(next == dest){
+            // Create array of string for tracking
+            string[] track = new string[this.NumOfVertex + 1];
+            string[] trackDFS = new string[this.NumOfVertex + 1];
+
+            // Set initial condition
+            setActiveVertex(init);
+            next = sortStringList(listBranch("", init, raw))[1];
+            track[count] = init;
+            trackDFS[countDFS] = init;
+
+            // Find the track
+            while (!found)
+            {
+                if (next == dest)
+                {
+                    setActiveVertex(dest);
+                    found = true;
                     count++;
                     track[count] = next;
-                    found = true;
-                }else{
-                    if(int.Parse(listBranch(track[count],next,raw)[0]) == 0){
-                        next = track[count];
-                        count--;
-                    }
-                    else{
-                        if (isBranchVisited(next, raw)) {
-                            if (count == 1) {
-                                track[count] = "Tidak ada jalur koneksi yang tersedia";
-                                found = true;
-                            }
-                            else {
-                                setInactive(track[count],next, raw);
-                                next = track[count];
-                                count--;
-                            }
+                    countDFS++;
+                    trackDFS[countDFS] = next;
+                }
+                else
+                {
+                    if (isBranchVisited(next, raw))
+                    {
+                        if (next == init)
+                        {
+                            trackDFS[countDFS] = "Tidak ada jalur koneksi yang tersedia";
+                            found = true;
                         }
-                        else{
+                        else
+                        {
                             setActiveVertex(next);
+                            trackDFS[0] = countDFS.ToString();
+                            if (!isExist(next, trackDFS))
+                            {
+                                countDFS++;
+                                trackDFS[countDFS] = next;
+                            }
+                            track[0] = count.ToString();
+                            setInactive(track[count], next, raw, track);
+                            next = track[count];
+                            count--;
+                        }
+                    }
+                    else
+                    {
+                        track[0] = count.ToString();
+                        trackDFS[0] = countDFS.ToString();
+                        setActiveVertex(next);
+                        if (!isExist(next, trackDFS))
+                        {
+                            countDFS++;
+                            trackDFS[countDFS] = next;
+                        }
+                        if (!isExist(next, track))
+                        {
                             count++;
                             track[count] = next;
-                            next = selectBranch(sortStringList(listBranch(track[count], next, raw)));
                         }
+                        next = selectBranch(sortStringList(listBranch(track[count - 1], next, raw)));
                     }
-
                 }
             }
             track[0] = count.ToString();
-            return track;
+            trackDFS[0] = countDFS.ToString();
+            return trackDFS;
         }
 
         public string showDFS(string init, string dest, string[] raw)
         {
-            int i = int.Parse(ExploreFriend(init, dest, raw)[0]);
+            string[] x = new string[this.NumOfVertex + 1];
+            x = ExploreFriend(init, dest, raw);
+            int i = int.Parse(x[0]);
             string result = "";
 
-            string[] buffer;
-            buffer = ExploreFriend(init, dest, raw);
-
-            if (i == 1){
-                result = result+buffer[1];
-            }else{  
-                
-                for(int j = 1; j <= i; j++){
-                    if(j == i){
-                        result = String.Concat(result,buffer[j]);
-                    }else{
-                        result = String.Concat(result, buffer[j]," -> ");
+            if (i == 1)
+            {
+                result = result + x[1];
+            }
+            else
+            {
+                for (int j = 1; j <= i; j++)
+                {
+                    if (j == i)
+                    {
+                        result = String.Concat(result, x[j]);
+                    }
+                    else
+                    {
+                        result = String.Concat(result, x[j], " -> ");
                     }
                 }
             }
