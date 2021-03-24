@@ -20,8 +20,7 @@ namespace PeopleUMayKnow
             InitializeComponent();
         }
 
-        // Dekalrasi graph drawer
-        Microsoft.Msagl.Drawing.Graph graphDrawer = new Microsoft.Msagl.Drawing.Graph("graph");
+        
 
         // Deklarasi file opener
         OpenFileDialog ofd = new OpenFileDialog();
@@ -33,8 +32,13 @@ namespace PeopleUMayKnow
             ofd.Filter = "Text Documents (*.txt)|*.txt";
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                // Membuat graph dari text yang di buka
+                comboBox1.Items.Clear();
+                comboBox2.Items.Clear();
                 g.clearGraph();
+                // Dekalrasi graph drawer
+                Microsoft.Msagl.Drawing.Graph graphDrawer = new Microsoft.Msagl.Drawing.Graph("graph");
+
+                // Membuat graph dari text yang di buka
                 path.Text = ofd.SafeFileName;
                 string[] isi = File.ReadAllLines(ofd.FileName);
                 g.setGraph(isi);
@@ -61,6 +65,11 @@ namespace PeopleUMayKnow
         
         private void button2_Click(object sender, EventArgs e)
         {
+            if(!radioButton1.Checked && !radioButton2.Checked)
+            {
+                MessageBox.Show("Belum memilih metode!");
+                return;
+            }
             textBox2.Clear();
             DFS dfs = new DFS(this.contents);
             string init = comboBox1.SelectedItem.ToString();
