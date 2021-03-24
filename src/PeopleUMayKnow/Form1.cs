@@ -78,7 +78,7 @@ namespace PeopleUMayKnow
                         }
                         if (radioButton2.Checked){
                             BFS bfs = new BFS(this.contents);
-                            textBox2.AppendText(bfs.showBFS(bfs.ExploreFriendBFS(init, dest)));
+                            textBox2.AppendText(bfs.ShowBFS(bfs.ExploreFriendBFS(init, dest)));
                         }
                     }
                     textBox2.AppendText("\r\n    ");
