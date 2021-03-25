@@ -100,7 +100,14 @@ namespace PeopleUMayKnow
             }
             textBox2.AppendText("\r\n");
             textBox2.AppendText("Nama akun : "+init+" dan "+dest+"\r\n");
-            textBox2.AppendText(dfs.showDFS(init, dest, this.contents));
+            if (radioButton1.Checked){
+                DFS dfs2 = new DFS(this.contents);
+                textBox2.AppendText(dfs2.showDFS(init, dest, this.contents));
+            }
+            if (radioButton2.Checked){
+                BFS bfs2 = new BFS(this.contents);
+                textBox2.AppendText(bfs2.ShowBFS(bfs2.ExploreFriendBFS(init, dest)));
+            }
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
