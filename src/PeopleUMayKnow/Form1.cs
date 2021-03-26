@@ -178,7 +178,7 @@ namespace PeopleUMayKnow
                             
                         }
                     }
-                    textBox2.AppendText(edges[0]);
+                    
                     // merubah warna edge dan node
                     for (int i = 0; i < edges.Count() - 1; i++)
                     {
