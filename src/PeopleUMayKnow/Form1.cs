@@ -70,6 +70,11 @@ namespace PeopleUMayKnow
                 MessageBox.Show("Belum memilih metode!");
                 return;
             }
+            if(comboBox1.SelectedItem == null || comboBox2.SelectedItem == null)
+            {
+                MessageBox.Show("Belum memilih account!");
+                return;
+            }
             textBox2.Clear();
             DFS dfs = new DFS(this.contents);
             string init = comboBox1.SelectedItem.ToString();
@@ -84,6 +89,7 @@ namespace PeopleUMayKnow
                     if (mutualfriend.relation[i][1] == dest){
                         if (radioButton1.Checked){
                             textBox2.AppendText(dfs.showDFS(init, dest, this.contents));
+                            
                         }
                         if (radioButton2.Checked){
                             BFS bfs = new BFS(this.contents);
@@ -96,17 +102,103 @@ namespace PeopleUMayKnow
                         textBox2.AppendText(mutualfriend.relation[i][j + 2]);
                     }
                     textBox2.AppendText("\r\n");
+                    
                 }
             }
             textBox2.AppendText("\r\n");
             textBox2.AppendText("Nama akun : "+init+" dan "+dest+"\r\n");
             if (radioButton1.Checked){
+                // mencari dengan DFS
                 DFS dfs2 = new DFS(this.contents);
-                textBox2.AppendText(dfs2.showDFS(init, dest, this.contents));
+                string text = dfs2.showDFS(init, dest, this.contents);
+
+                // memprint hasil ke textBox2
+                textBox2.AppendText(text);
+                
+                // mendeklarasikan delimiter untuk parsing text menjadi nodes
+                char[] dilimiter = { ' ', '-', '>', ',', '(', ')' };
+                string[] hasil;
+
+                // jika ditemukan koneksi
+                if(!text.Equals("Tidak ada jalur koneksi yang tersedia")){
+                    hasil = text.Split(dilimiter);
+                    // membuat list of node yg dikunjungi
+                    List<string> edges = new List<string> { };
+                    foreach(string t in hasil)
+                    {
+                        if (g.Nodes.Contains(t))
+                        {
+                            edges.Add(t);
+                        }
+                    }
+                    
+                    // merubah warna edge dan node
+                    for(int i =0; i < edges.Count()-1; i++)
+                    {
+                        foreach(Microsoft.Msagl.Drawing.Edge E in gViewer1.Graph.Edges)
+                        {
+                            if ((E.Source.Equals(edges[i]) && E.Target.Equals(edges[i + 1])) || (E.Source.Equals(edges[i + 1]) && E.Target.Equals(edges[i])))
+                            {
+                                E.Attr.Color = Microsoft.Msagl.Drawing.Color.Blue;
+                            }
+                        }
+                        /*
+                        if (i != 0 || i != edges.Count() - 1)
+                        {
+                            gViewer1.Graph.FindNode(edges[i]).Attr.Color = Microsoft.Msagl.Drawing.Color.Green;
+                        }
+                        */
+                    }
+                    gViewer1.Refresh();
+                    
+                }
             }
             if (radioButton2.Checked){
+                // mencari dengan bfs
                 BFS bfs2 = new BFS(this.contents);
-                textBox2.AppendText(bfs2.ShowBFS(bfs2.ExploreFriendBFS(init, dest)));
+
+                string text = bfs2.ShowBFS(bfs2.ExploreFriendBFS(init, dest));
+                textBox2.AppendText(text);
+
+                // mendeklarasikan delimiter untuk parsing text menjadi nodes
+                char[] dilimiter = { ' ', '-', '>', ',', '(', ')' };
+                string[] hasil;
+
+                // jika ditemukan koneksi
+                if (!text.Equals("Tidak ada jalur koneksi yang tersedia"))
+                {
+                    hasil = text.Split(dilimiter);
+                    // membuat list of node yg dikunjungi
+                    List<string> edges = new List<string> { };
+                    foreach (string t in hasil)
+                    {
+                        if (g.Nodes.Contains(t))
+                        {
+                            edges.Add(t);
+                            
+                        }
+                    }
+                    textBox2.AppendText(edges[0]);
+                    // merubah warna edge dan node
+                    for (int i = 0; i < edges.Count() - 1; i++)
+                    {
+                        foreach (Microsoft.Msagl.Drawing.Edge E in gViewer1.Graph.Edges)
+                        {
+                            if ((E.Source.Equals(edges[i]) && E.Target.Equals(edges[i + 1])) || (E.Source.Equals(edges[i + 1]) && E.Target.Equals(edges[i])))
+                            {
+                                E.Attr.Color = Microsoft.Msagl.Drawing.Color.Blue;
+                            }
+                        }
+                        /*
+                        if (i != 0 || i != edges.Count() - 1)
+                        {
+                            gViewer1.Graph.FindNode(edges[i]).Attr.FillColor = Microsoft.Msagl.Drawing.Color.LightGreen;
+                        }
+                        */
+                    }
+                    gViewer1.Refresh();
+
+                }
             }
         }
 
@@ -121,6 +213,10 @@ namespace PeopleUMayKnow
                     n.Attr.FillColor = Microsoft.Msagl.Drawing.Color.White;
                 }
                 
+            }
+            foreach (Microsoft.Msagl.Drawing.Edge E in gViewer1.Graph.Edges)
+            {
+                E.Attr.Color = Microsoft.Msagl.Drawing.Color.Black;
             }
             gViewer1.Refresh();
 
@@ -144,6 +240,10 @@ namespace PeopleUMayKnow
                     n.Attr.FillColor = Microsoft.Msagl.Drawing.Color.White;
                 }
 
+            }
+            foreach (Microsoft.Msagl.Drawing.Edge E in gViewer1.Graph.Edges)
+            {
+                E.Attr.Color = Microsoft.Msagl.Drawing.Color.Black;
             }
             gViewer1.Graph.FindNode(comboBox2.Text).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Red;
             gViewer1.Refresh();
